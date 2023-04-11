@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useMemo, useState, useEffect } from "react";
 import { styled } from "@mui/system";
-import logo from "./secret-sips-temp-logo.png";
+import logo from "./secret-sips-logo.png";
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
