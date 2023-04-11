@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useMemo, useState, useEffect } from "react";
 import { styled } from "@mui/system";
+import logo from "./secret-sips-temp-logo.png";
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
@@ -68,6 +69,7 @@ function App() {
       <CssBaseline />
       <Container component="main" sx={{ mt: 10 }} maxWidth={false}>
         <HomePage>
+          <img src={logo} alt="logo" height="100%" width="100%" />
           {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" /> */}
           <Button>Test Hit Endpoint</Button>
         </HomePage>
