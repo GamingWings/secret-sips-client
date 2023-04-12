@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 type OutputFn<T> = (value: T) => void;
 
 type MockWretch = {

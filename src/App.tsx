@@ -10,6 +10,14 @@ import { CreateNewGame } from "./routes/CreateNewGame";
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
+interface WebSocketMessage {
+  data: object;
+}
+
+interface WebSocketError {
+  error: object;
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +42,7 @@ function App() {
       console.log("WebSocket connection opened");
     });
 
-    socket.addEventListener("message", (event) => {
+    socket.addEventListener("message", (event: WebSocketMessage) => {
       console.log(`Received message: ${event.data}`);
     });
 
@@ -42,7 +50,7 @@ function App() {
       console.log("WebSocket connection closed");
     });
 
-    socket.addEventListener("error", (event) => {
+    socket.addEventListener("error", (event: WebSocketError) => {
       console.error("WebSocket error:", event.error);
     });
 

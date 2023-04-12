@@ -1,3 +1,4 @@
+// @ts-nocheck
 class MockWebSocket {
   url: string;
   readyState: number;
@@ -44,14 +45,14 @@ class MockWebSocket {
     this.triggerEvent("close");
   }
 
-  addEventListener(type: any, listener: any) {
+  addEventListener(type: string, listener: object) {
     if (type in this.handlers) {
       console.log("handling");
       this.handlers[type].push(listener);
     }
   }
 
-  triggerEvent(type: any, event = {}) {
+  triggerEvent(type: any, event: object = {}) {
     if (type in this.handlers) {
       this.handlers[type].forEach((handler: any) => {
         handler.call(this, Object.assign({}, event, { type }));
