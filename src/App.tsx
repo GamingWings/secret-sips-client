@@ -1,26 +1,25 @@
 import "./App.css";
-import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 import { useMemo, useState, useEffect } from "react";
-import { styled } from "@mui/system";
-import logo from "./secret-sips-logo.png";
 import MockWebSocket from "./mocks/webSocket.mock";
-import Typography from "@mui/material/Typography";
-import { createGame } from "./services";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { HomePage } from "./routes/HomePage";
+import { CreateNewGame } from "./routes/CreateNewGame";
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
-const HomePage = styled("section")({
-  display: "grid",
-  gridTemplateColumns: "auto",
-  gap: "2rem",
-  width: "100%",
-});
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/create",
+    element: <CreateNewGame />,
+  },
+]);
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -74,22 +73,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container component="main" sx={{ mt: 10 }} maxWidth={false}>
-        <HomePage>
-          <img src={logo} alt="logo" height="100%" width="100%" />
-
-          <Box display="grid" gap="1rem">
-            <TextField
-              id="outlined-basic"
-              label="Enter Code"
-              variant="outlined"
-            />
-            <Button>Join Game</Button>
-          </Box>
-
-          <Button onClick={createGame}>Create Game</Button>
-        </HomePage>
-      </Container>
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }

@@ -1,14 +1,15 @@
 import { mockWretch as wretch } from "./mocks/wretch.mock";
+import { CreateGameInputs } from "./types/input_types";
 
-const postData = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  message: "Hello from Wretch!",
-};
+/**
+ * Rounds
+ * minSecrets
+ * TimerLength
+ */
 
-export const createGame = () => {
-  return wretch("/api/messages")
-    .post(postData)
+export const createGame = (inputData: CreateGameInputs) => {
+  return wretch("/SecretSips/Create")
+    .post(inputData)
     .json()
     .then((response) => {
       console.log(response);

@@ -2,13 +2,13 @@ class MockWebSocket {
   url: string;
   readyState: number;
   bufferedMessages: Array<any>;
-  handlers: object;
+  handlers: any;
   CONNECTING = WebSocket.CONNECTING;
   OPEN = WebSocket.OPEN;
   CLOSING = WebSocket.CLOSING;
   CLOSED = WebSocket.CLOSED;
 
-  constructor(url) {
+  constructor(url: string) {
     this.url = url;
     this.readyState = WebSocket.CONNECTING;
     this.bufferedMessages = [];
@@ -29,7 +29,7 @@ class MockWebSocket {
     }, 0);
   }
 
-  send(data) {
+  send(data: any) {
     if (this.readyState === WebSocket.OPEN) {
       setTimeout(() => {
         this.triggerEvent("message", { data });
@@ -44,16 +44,16 @@ class MockWebSocket {
     this.triggerEvent("close");
   }
 
-  addEventListener(type, listener) {
+  addEventListener(type: any, listener: any) {
     if (type in this.handlers) {
       console.log("handling");
       this.handlers[type].push(listener);
     }
   }
 
-  triggerEvent(type, event = {}) {
+  triggerEvent(type: any, event = {}) {
     if (type in this.handlers) {
-      this.handlers[type].forEach((handler) => {
+      this.handlers[type].forEach((handler: any) => {
         handler.call(this, Object.assign({}, event, { type }));
       });
     }

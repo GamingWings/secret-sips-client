@@ -11,11 +11,12 @@ export const mockWretch = (url: string): MockWretch => {
 
   const post = (input) => {
     data = input;
+    console.log("Receiving data", input);
     return api;
   };
 
   const json = () => {
-    return Promise.resolve({ mocked: data });
+    return Promise.resolve("123456");
   };
 
   const output = (fn: OutputFn<any>) => {
