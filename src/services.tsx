@@ -1,4 +1,5 @@
-import { mockWretch as wretch } from "./mocks/wretch.mock";
+// import { mockWretch as wretch } from "./mocks/wretch.mock";
+import wretch from "wretch";
 import { CreateGameInputs } from "./types/input_types";
 
 /**k
@@ -8,7 +9,7 @@ import { CreateGameInputs } from "./types/input_types";
  */
 
 export const createGame = (inputData: CreateGameInputs) => {
-  return wretch("http://localhost:44332/SecretSips/Create")
+  return wretch("http://localhost:5156/SecretSips/Create")
     .post(inputData)
     .json()
     .then((response) => {
