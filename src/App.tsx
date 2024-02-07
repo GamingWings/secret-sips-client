@@ -7,6 +7,8 @@ import MockWebSocket from "./mocks/webSocket.mock";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "./routes/HomePage";
 import { CreateNewGame } from "./routes/CreateNewGame";
+import { LiveGameWrapper } from "./routes/LiveGameWrapper";
+
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
     path: "/create",
     element: <CreateNewGame />,
   },
+  {
+    path: "/connect",
+    element: <LiveGameWrapper />
+  }
 ]);
 
 function App() {
@@ -35,30 +41,30 @@ function App() {
     localStorage.getItem(LOCAL_STORAGE_THEME) ?? "system"
   );
 
-  useEffect(() => {
-    const socket = new MockWebSocket("wss://localhost:44332/SecretSips/Join");
+  // useEffect(() => {
+  //   const socket = new MockWebSocket("wss://localhost:44332/SecretSips/Join");
 
-    socket.addEventListener("open", () => {
-      console.log("WebSocket connection opened");
-    });
+  //   socket.addEventListener("open", () => {
+  //     console.log("WebSocket connection opened");
+  //   });
 
-    socket.addEventListener("message", (event: WebSocketMessage) => {
-      console.log(`Received message: ${event.data}`);
-    });
+  //   socket.addEventListener("message", (event: WebSocketMessage) => {
+  //     console.log(`Received message: ${event.data}`);
+  //   });
 
-    socket.addEventListener("close", () => {
-      console.log("WebSocket connection closed");
-    });
+  //   socket.addEventListener("close", () => {
+  //     console.log("WebSocket connection closed");
+  //   });
 
-    socket.addEventListener("error", (event: WebSocketError) => {
-      console.error("WebSocket error:", event.error);
-    });
+  //   socket.addEventListener("error", (event: WebSocketError) => {
+  //     console.error("WebSocket error:", event.error);
+  //   });
 
-    // Close the WebSocket connection when the component unmounts
-    return () => {
-      socket.close();
-    };
-  }, []);
+  //   // Close the WebSocket connection when the component unmounts
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, []);
 
   const theme = useMemo(
     () =>
