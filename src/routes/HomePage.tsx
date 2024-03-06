@@ -17,7 +17,6 @@ const HomePageWrapper = styled("section")({
 });
 
 export const HomePage = () => {
-  console.log("home");
   const [inputs, setInputs] = useState<JoinGameInputs>({
     UserName: "",
     Code: "",

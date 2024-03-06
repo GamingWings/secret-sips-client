@@ -3,6 +3,7 @@ import React, { useState, useEffect, ReactElement } from "react";
 interface UserContextShape {
   setReady: Function;
   hasWs: boolean;
+  setConnectionUrl: Function;
 }
 
 export const LiveGameContext = React.createContext<UserContextShape>(
@@ -12,11 +13,10 @@ export const LiveGameContext = React.createContext<UserContextShape>(
 export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
   const [ready, setReady] = useState(false);
   const [hasWs, setHasWs] = useState(false);
-
-  console.log(`i am ready is ${ready}`);
+  const [connectionUrl, setConnectionUrl] = useState<string | null>(null)
 
   useEffect(() => {
-    if (ready) {
+    if (connectionUrl) {
       const Code = "Jenn";
       const UserName = "Less";
 
@@ -35,7 +35,7 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
         return;
       }
 
-      const wsURL = `ws://localhost:5156/SecretSips/Create?Rounds=2&MinSecrets=3&TimerLength=40&UserName=Foobar`; // Replace with your WebSocket URL
+      const wsURL = connectionUrl; // Replace with your WebSocket URL
       global.gameSocket = new WebSocket(wsURL);
 
       global.gameSocket.addEventListener("open", () => {
@@ -70,6 +70,7 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
     <LiveGameContext.Provider
       value={{
         setReady,
+        setConnectionUrl,
         hasWs,
       }}
     >
