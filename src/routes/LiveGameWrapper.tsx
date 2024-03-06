@@ -64,7 +64,7 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
         global.gameSocket.close();
       }
     };
-  }, [ready]);
+  }, [connectionUrl]);
 
   return (
     <LiveGameContext.Provider
