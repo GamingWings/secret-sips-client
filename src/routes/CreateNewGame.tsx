@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/system";
 import Button from "@mui/material/Button";
@@ -26,6 +26,10 @@ const HomePageWrapper = styled("section")({
 export const CreateNewGame = () => {
   const navigate = useNavigate();
   const { setReady, hasWs } = useContext(LiveGameContext);
+  const [ userName, setUserName] = useState("");
+  const [ timerLength, setTimerLength] = useState("");
+  const [ minSecrets, setMinSecrets] = useState("");
+  const [ rounds, setRounds] = useState("");
 
   useEffect(() => {
     if (hasWs) {
@@ -48,11 +52,31 @@ export const CreateNewGame = () => {
     <Container component="main" sx={{ mt: 10 }} maxWidth={false}>
       <HomePageWrapper>
         <Box mb={3}>
-          <TextField id="userName" label="User Name" variant="outlined" />
+          <TextField 
+            id="userName" 
+            label="User Name" 
+            variant="outlined" 
+            onChange={({target: {value}}) => setUserName(value)} 
+          />
         </Box>
-        <TextField id="numberRounds" label="Rounds" variant="outlined" />
-        <TextField id="minSecrets" label="Min Secrets" variant="outlined" />
-        <TextField id="timer" label="Timer" variant="outlined" />
+        <TextField 
+          id="numberRounds" 
+          label="Rounds" 
+          variant="outlined" 
+          onChange={({target: {value}}) => setRounds(value)} 
+          />
+        <TextField
+          id="minSecrets"
+          label="Min Secrets"
+          variant="outlined"
+          onChange={({target: {value}}) => setMinSecrets(value)} 
+        />
+        <TextField 
+          id="timer"
+          label="Timer"
+          variant="outlined"
+          onChange={({target: {value}}) => setTimerLength(value)} 
+        />
         <Button onClick={handleClickJoin}>Post Data</Button>
       </HomePageWrapper>
     </Container>
