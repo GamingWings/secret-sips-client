@@ -2,11 +2,12 @@ import "./App.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useContext } from "react";
 import MockWebSocket from "./mocks/webSocket.mock";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "./routes/HomePage";
 import { CreateNewGame } from "./routes/CreateNewGame";
+import { LiveGameProvider, LiveGameContext } from "./routes/LiveGameWrapper";
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
@@ -18,6 +19,10 @@ interface WebSocketError {
   error: object;
 }
 
+const Test = () => {
+  return <div>You in da game</div>;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +32,10 @@ const router = createBrowserRouter([
     path: "/create",
     element: <CreateNewGame />,
   },
+  {
+    path: "/game",
+    element: <Test />,
+  },
 ]);
 
 function App() {
@@ -35,30 +44,30 @@ function App() {
     localStorage.getItem(LOCAL_STORAGE_THEME) ?? "system"
   );
 
-  useEffect(() => {
-    const socket = new MockWebSocket("wss://localhost:44332/SecretSips/Join");
+  // useEffect(() => {
+  //   const socket = new MockWebSocket("wss://localhost:44332/SecretSips/Join");
 
-    socket.addEventListener("open", () => {
-      console.log("WebSocket connection opened");
-    });
+  //   socket.addEventListener("open", () => {
+  //     console.log("WebSocket connection opened");
+  //   });
 
-    socket.addEventListener("message", (event: WebSocketMessage) => {
-      console.log(`Received message: ${event.data}`);
-    });
+  //   socket.addEventListener("message", (event: WebSocketMessage) => {
+  //     console.log(`Received message: ${event.data}`);
+  //   });
 
-    socket.addEventListener("close", () => {
-      console.log("WebSocket connection closed");
-    });
+  //   socket.addEventListener("close", () => {
+  //     console.log("WebSocket connection closed");
+  //   });
 
-    socket.addEventListener("error", (event: WebSocketError) => {
-      console.error("WebSocket error:", event.error);
-    });
+  //   socket.addEventListener("error", (event: WebSocketError) => {
+  //     console.error("WebSocket error:", event.error);
+  //   });
 
-    // Close the WebSocket connection when the component unmounts
-    return () => {
-      socket.close();
-    };
-  }, []);
+  //   // Close the WebSocket connection when the component unmounts
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, []);
 
   const theme = useMemo(
     () =>
@@ -79,11 +88,26 @@ function App() {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <LiveGameProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </LiveGameProvider>
   );
 }
 
 export default App;
+
+/**
+ * <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <WsProvider>
+          <Route path="/blog/*" element={<BlogApp />} />
+          <Route path="/users/*" element={<UserApp />} />
+        </WsProvider
+      </Routes>
+    </BrowserRouter>
+
+ */
