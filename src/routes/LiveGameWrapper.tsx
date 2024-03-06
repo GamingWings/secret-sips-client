@@ -15,6 +15,7 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
   const [hasWs, setHasWs] = useState(false);
   const [connectionUrl, setConnectionUrl] = useState<string | null>(null)
 
+  console.log('connection url is ', connectionUrl)
   useEffect(() => {
     if (connectionUrl) {
       const Code = "Jenn";

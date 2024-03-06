@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useContext, useEffect } from "react";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -8,6 +8,7 @@ import logo from "../secret-sips-logo.png";
 import { createSocketConnection } from "../services";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { JoinGameInputs } from "../types/input_types";
+import {LiveGameContext} from './LiveGameWrapper';
 
 const HomePageWrapper = styled("section")({
   display: "grid",
@@ -17,6 +18,10 @@ const HomePageWrapper = styled("section")({
 });
 
 export const HomePage = () => {
+
+  const { setConnectionUrl } = useContext(LiveGameContext);
+
+  
   const [inputs, setInputs] = useState<JoinGameInputs>({
     UserName: "",
     Code: "",
@@ -32,7 +37,16 @@ export const HomePage = () => {
     }));
   };
 
+  const {hasWs} = useContext(LiveGameContext)
+
   const navigate = useNavigate();
+  useEffect(() => {
+    if (hasWs) {
+      navigate({
+        pathname: "/game",
+      });
+    }
+  }, [hasWs]);
 
   function createSearchParams(inputs: JoinGameInputs): string {
     const params = new URLSearchParams();
@@ -44,14 +58,9 @@ export const HomePage = () => {
 
   const handleClickJoin = () => {
     // Define your parameters
-
-    console.log(`?${createSearchParams(inputs)}`);
-
-    // Navigate to the 'create' route with parameters
-    navigate({
-      pathname: "/create",
-      search: `?${createSearchParams(inputs)}`,
-    });
+    
+    console.log(createSearchParams(inputs))
+   setConnectionUrl(`ws://localhost:5156/SecretSips/Join?${createSearchParams(inputs)}`)
   };
 
   return (
