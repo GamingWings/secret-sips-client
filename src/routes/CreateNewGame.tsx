@@ -25,7 +25,7 @@ const HomePageWrapper = styled("section")({
 
 export const CreateNewGame = () => {
   const navigate = useNavigate();
-  const { setReady, hasWs } = useContext(LiveGameContext);
+  const { setConnectionUrl, hasWs } = useContext(LiveGameContext);
   const [ userName, setUserName] = useState("");
   const [ timerLength, setTimerLength] = useState("");
   const [ minSecrets, setMinSecrets] = useState("");
@@ -44,8 +44,15 @@ export const CreateNewGame = () => {
 
     console.log("test");
 
+    const params = new URLSearchParams({
+      userName,
+      timerLength,
+      minSecrets,
+      rounds
+    });
+
     // Navigate to the 'create' route with parameters
-    setReady(true);
+    setConnectionUrl(`SecretSips/Create?${params.toString()}`);
   };
 
   return (

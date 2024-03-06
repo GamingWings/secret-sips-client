@@ -35,7 +35,7 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
         return;
       }
 
-      const wsURL = connectionUrl; // Replace with your WebSocket URL
+      const wsURL = `ws://localhost:5156/${connectionUrl}`; // Replace with your WebSocket URL
       global.gameSocket = new WebSocket(wsURL);
 
       global.gameSocket.addEventListener("open", () => {
