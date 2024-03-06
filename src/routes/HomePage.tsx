@@ -60,7 +60,7 @@ export const HomePage = () => {
     // Define your parameters
     
     console.log(createSearchParams(inputs))
-   setConnectionUrl(`ws://localhost:5156/SecretSips/Join?${createSearchParams(inputs)}`)
+   setConnectionUrl(`SecretSips/Join?${createSearchParams(inputs)}`)
   };
 
   return (
