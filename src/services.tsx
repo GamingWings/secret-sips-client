@@ -9,12 +9,20 @@ import { CreateGameInputs, JoinGameInputs } from "./types/input_types";
  */
 
 export const createGame = (inputData: CreateGameInputs) => {
-  return wretch("http://localhost:5156/SecretSips/Create")
-    .post(inputData)
-    .json()
-    .then((response) => {
-      console.log(response);
-    });
+  // const urlParams = new URLSearchParams({
+  //   UserName: "Jenn",
+  //   Rounds: '1',
+  //   MinSecrets: '2',
+  //   TimerLength: '1',
+  // });
+  // return wretch(`ws://localhost:5156/SecretSips/Create?${urlParams}`)
+  //   .get()
+  //   .json()
+  //   .then((response) => {
+  //     console.log(response);
+  //   });
+
+  global.gameSocket.send("hi");
 };
 
 export const joinGame = ({ Code, UserName }: JoinGameInputs) => {

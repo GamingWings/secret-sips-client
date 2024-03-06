@@ -2,13 +2,12 @@ import "./App.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useContext } from "react";
 import MockWebSocket from "./mocks/webSocket.mock";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "./routes/HomePage";
 import { CreateNewGame } from "./routes/CreateNewGame";
-import { LiveGameWrapper } from "./routes/LiveGameWrapper";
-
+import { LiveGameProvider, LiveGameContext } from "./routes/LiveGameWrapper";
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
@@ -20,6 +19,10 @@ interface WebSocketError {
   error: object;
 }
 
+const Test = () => {
+  return <div>You in da game</div>;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,9 +33,9 @@ const router = createBrowserRouter([
     element: <CreateNewGame />,
   },
   {
-    path: "/connect",
-    element: <LiveGameWrapper />
-  }
+    path: "/game",
+    element: <Test />,
+  },
 ]);
 
 function App() {
@@ -85,11 +88,26 @@ function App() {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <LiveGameProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </LiveGameProvider>
   );
 }
 
 export default App;
+
+/**
+ * <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <WsProvider>
+          <Route path="/blog/*" element={<BlogApp />} />
+          <Route path="/users/*" element={<UserApp />} />
+        </WsProvider
+      </Routes>
+    </BrowserRouter>
+
+ */

@@ -16,9 +16,8 @@ const HomePageWrapper = styled("section")({
   width: "100%",
 });
 
-
-
 export const HomePage = () => {
+  console.log("home");
   const [inputs, setInputs] = useState<JoinGameInputs>({
     UserName: "",
     Code: "",
@@ -47,13 +46,13 @@ export const HomePage = () => {
   const handleClickJoin = () => {
     // Define your parameters
 
-    console.log(`?${createSearchParams(inputs)}`)
+    console.log(`?${createSearchParams(inputs)}`);
 
     // Navigate to the 'create' route with parameters
     navigate({
-      pathname: "/connect",
+      pathname: "/create",
       search: `?${createSearchParams(inputs)}`,
-  });
+    });
   };
 
   return (
@@ -82,7 +81,7 @@ export const HomePage = () => {
           />
           <Button
             onClick={handleClickJoin}
-            disabled={inputs.Code === '' && inputs.UserName === ''}
+            disabled={inputs.Code === "" && inputs.UserName === ""}
           >
             Join Game
           </Button>

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/system";
 import Button from "@mui/material/Button";
 import { createGame } from "../services";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import { createSocketConnection } from "../services";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { LiveGameContext } from "./LiveGameWrapper";
 
 const TEMP_CREATE_INPUTS = {
   UserName: "Jenn",
@@ -21,6 +24,26 @@ const HomePageWrapper = styled("section")({
 });
 
 export const CreateNewGame = () => {
+  const navigate = useNavigate();
+  const { setReady, hasWs } = useContext(LiveGameContext);
+
+  useEffect(() => {
+    if (hasWs) {
+      navigate({
+        pathname: "/game",
+      });
+    }
+  }, [hasWs]);
+
+  const handleClickJoin = () => {
+    // Define your parameters
+
+    console.log("test");
+
+    // Navigate to the 'create' route with parameters
+    setReady(true);
+  };
+
   return (
     <Container component="main" sx={{ mt: 10 }} maxWidth={false}>
       <HomePageWrapper>
@@ -30,9 +53,7 @@ export const CreateNewGame = () => {
         <TextField id="numberRounds" label="Rounds" variant="outlined" />
         <TextField id="minSecrets" label="Min Secrets" variant="outlined" />
         <TextField id="timer" label="Timer" variant="outlined" />
-        <Button onClick={() => createGame(TEMP_CREATE_INPUTS)}>
-          Post Data
-        </Button>
+        <Button onClick={handleClickJoin}>Post Data</Button>
       </HomePageWrapper>
     </Container>
   );
