@@ -25,23 +25,24 @@ const HomePageWrapper = styled("section")({
 
 export const CreateNewGame = () => {
   const navigate = useNavigate();
-  const { setReady, hasWs } = useContext(LiveGameContext);
+  // const { setReady, hasWs } = useContext(LiveGameContext);
 
-  useEffect(() => {
-    if (hasWs) {
-      navigate({
-        pathname: "/game",
-      });
-    }
-  }, [hasWs]);
+  // console.log('hi')
+
+  // useEffect(() => {
+  //   if (hasWs) {
+  //     navigate({
+  //       pathname: "/game",
+  //     });
+  //   }
+  // }, [hasWs]);
 
   const handleClickJoin = () => {
     // Define your parameters
 
-    console.log("test");
-
-    // Navigate to the 'create' route with parameters
-    setReady(true);
+    navigate({
+      pathname: "/game",
+    });
   };
 
   return (

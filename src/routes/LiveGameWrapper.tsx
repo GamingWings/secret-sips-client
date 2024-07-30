@@ -25,7 +25,6 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
         Code,
         UserName,
       });
-      // Check if the WebSocket is already open, if so, return
 
       // Check if the WebSocket is already open, if so, return
       if (

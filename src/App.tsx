@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "./routes/HomePage";
 import { CreateNewGame } from "./routes/CreateNewGame";
 import { LiveGameProvider, LiveGameContext } from "./routes/LiveGameWrapper";
+import {GameWrapper} from './routes/Game'
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/game",
-    element: <Test />,
+    element: <GameWrapper />,
   },
 ]);
 
