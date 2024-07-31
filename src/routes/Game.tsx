@@ -2,6 +2,7 @@ import React, {useState, useEffect, ReactNode} from 'react';
 import {LoadingGame} from './GameLobby'
  // @ts-ignore
 import PubSub from 'pubsub-js'
+import { Outlet, Link, useLocation } from "react-router-dom";
 
 interface UserContextShape {
 }
@@ -14,16 +15,16 @@ const GAME_TOPIC = 'foo'
 
 const ActiveGame = ({gameTopic, initialMessage}: {gameTopic: string, initialMessage: any}) => {
   console.log(global.gameSocket)
-  const [errors, setErrors] = useState<any>(null);
+  const [messages, setMessages] = useState<any>(null);
 
-  const storeErrors = (_: any, msgs: any) => {
+  const storeMessages = (_: any, msgs: any) => {
     console.log('listening', msgs)
-    setErrors(msgs);
+    setMessages(msgs);
   };
 
   useEffect(() => {
-    console.log('messages', errors)
-  }, [errors])
+    console.log('messages', messages)
+  }, [messages])
 
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const ActiveGame = ({gameTopic, initialMessage}: {gameTopic: string, initialMess
       return;
     }
     console.log('hffi', initialMessage)
-    const token = PubSub.subscribe(gameTopic, storeErrors);
+    const token = PubSub.subscribe(gameTopic, storeMessages);
     // unsubscribe on unmount
     return () => {
       PubSub.unsubscribe(token);
@@ -41,21 +42,20 @@ const ActiveGame = ({gameTopic, initialMessage}: {gameTopic: string, initialMess
   }, [gameTopic]);
 
 
-  return <div>{JSON.stringify(errors)}</div>
+  return <div>{JSON.stringify(messages)}</div>
 }
 
 export const GameWrapper = () => {
     const [isReady, setIsReady] = useState(false);
     const [initialMessage, setInitialMessage] = useState<any>(null)
 
+    const {state: {type, ...rest}} = useLocation();
+
+    console.log(rest)
+
     useEffect(() => {
-          const Code = "Jenn";
-          const UserName = "Less";
-    
-          const urlParams = new URLSearchParams({
-            Code,
-            UserName,
-          });
+          const urlParams = new URLSearchParams(rest);
+
     
           // Check if the WebSocket is already open, if so, return
           if (
@@ -66,13 +66,14 @@ export const GameWrapper = () => {
             return;
           }
     
+          const gameType: any = type;
           // ws://localhost:5156/SecretSips/Join?${createSearchParams(inputs)}
-          const wsURL = 'ws://192.168.0.123:5156/SecreftSips/Join?UserName=Jenn&Code=123'; // Replace with your WebSocket URL
+          const wsURL = `ws://192.168.0.123:5156/SecretSips/${gameType}?${urlParams.toString()}`; // Replace with your WebSocket URL
           global.gameSocket = new WebSocket(wsURL);
     
           global.gameSocket.addEventListener("open", () => {
             console.log("WebSocket connection opened");
-            global.gameSocket.send('Hello Server!');
+            // global.gameSocket.send('Hello Server!');
             setIsReady(true);
             // Navigate to the 'create' route with parameters
           });

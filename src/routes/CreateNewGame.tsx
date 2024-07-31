@@ -11,9 +11,9 @@ import { LiveGameContext } from "./LiveGameWrapper";
 
 const TEMP_CREATE_INPUTS = {
   UserName: "Jenn",
-  Rounds: 1,
-  MinSecrets: 2,
-  TimerLength: 1,
+  Rounds: '1',
+  MinSecrets: '2',
+  TimerLength: '1',
 };
 
 const HomePageWrapper = styled("section")({
@@ -40,9 +40,10 @@ export const CreateNewGame = () => {
   const handleClickJoin = () => {
     // Define your parameters
 
-    navigate({
-      pathname: "/game",
-    });
+    console.log(new URLSearchParams(TEMP_CREATE_INPUTS).toString())
+    navigate( "/game",
+        {state: {...TEMP_CREATE_INPUTS, type: 'Create'}}
+    );
   };
 
   return (

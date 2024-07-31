@@ -42,25 +42,23 @@ export const HomePage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (hasWs) {
-      navigate({
-        pathname: "/game",
-      });
+      navigate(
+        "/game",
+        {state: {...inputs, type: 'Join'}}
+      );
     }
   }, [hasWs]);
 
-  function createSearchParams(inputs: JoinGameInputs): string {
-    const params = new URLSearchParams();
-    Object.entries(inputs).forEach(([key, value]) => {
-      params.append(key, value);
-    });
-    return params.toString();
-  }
 
   const handleClickJoin = () => {
     // Define your parameters
     
-    console.log(createSearchParams(inputs))
-    setConnectionUrl(`ws://localhost:5156/SecretSips/Join?${createSearchParams(inputs)}`)
+    // console.log(createSearchParams(inputs))
+    navigate(
+      "/game",
+      {state: {...inputs, type: 'Join'}}
+    );
+    // setConnectionUrl(`ws://localhost:5156/SecretSips/Join?${createSearchParams(inputs)}`)
   };
 
   return (
