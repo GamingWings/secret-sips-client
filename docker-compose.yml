@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  secret-sips-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: secret-sips-client
+    restart: unless-stopped
+    networks:
+      - shared-net
+    expose:
+      - "5000"
+
+networks:
+  shared-net:
+    external: true
