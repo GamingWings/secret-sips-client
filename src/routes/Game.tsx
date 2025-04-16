@@ -52,6 +52,7 @@ export const GameWrapper = () => {
     const {state: {type, ...rest}} = useLocation();
 
     console.log(rest)
+    console.log('REACT_APP_SERVER_URL', process.env.REACT_APP_SERVER_URL)
 
     useEffect(() => {
           const urlParams = new URLSearchParams(rest);
