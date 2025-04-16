@@ -16,6 +16,7 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
   const [connectionUrl, setConnectionUrl] = useState<string | null>(null)
 
   console.log('env hi', process.env.REACT_APP_SERVER_URL)
+  console.log('new log')
 
   useEffect(() => {
     if (connectionUrl) {
