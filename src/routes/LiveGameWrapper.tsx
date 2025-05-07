@@ -4,6 +4,8 @@ interface UserContextShape {
   setReady: Function;
   hasWs: boolean;
   setConnectionUrl: Function;
+  liveGameSecretCount: number;
+  setLiveGameSecretCount: (count: number) => void;
 }
   
 export const LiveGameContext = React.createContext<UserContextShape>(
@@ -15,8 +17,8 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
   const [hasWs, setHasWs] = useState(false);
   const [connectionUrl, setConnectionUrl] = useState<string | null>(null)
 
-  console.log('env hi', process.env.REACT_APP_SERVER_URL)
-  console.log('new log')
+  const [liveGameSecretCount, setLiveGameSecretCount] = useState(3);
+
 
   useEffect(() => {
     if (connectionUrl) {
@@ -75,6 +77,8 @@ export const LiveGameProvider = ({ children }: { children: ReactElement }) => {
         setReady,
         setConnectionUrl,
         hasWs,
+        liveGameSecretCount,
+        setLiveGameSecretCount
       }}
     >
       {children}

@@ -8,6 +8,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "./routes/HomePage";
 import { CreateNewGame } from "./routes/CreateNewGame";
 import { LiveGameProvider, LiveGameContext } from "./routes/LiveGameWrapper";
+import Container from "@mui/material/Container";
+import SecretInputScreen from "./routes/SecretInput";
+import GameStyleWrapper from "./components/StyleWrapper";
 
 export const LOCAL_STORAGE_THEME = "Theme";
 
@@ -24,18 +27,26 @@ const Test = () => {
 };
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/create",
-    element: <CreateNewGame />,
-  },
-  {
-    path: "/game",
-    element: <Test />,
-  },
+  {element: <GameStyleWrapper/>,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/create",
+        element: <CreateNewGame />,
+      },
+      {
+        path: "/game",
+        element: <Test />,
+      },
+      {
+        path: "/secret-entry-form",
+        element: <SecretInputScreen />,
+      },
+    ]
+  }
 ]);
 
 function App() {
@@ -91,7 +102,10 @@ function App() {
     <LiveGameProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        {/* <GameStyleWrapper isHomePage={false}> */}
+
         <RouterProvider router={router} />
+        {/* </GameStyleWrapper> */}
       </ThemeProvider>
     </LiveGameProvider>
   );

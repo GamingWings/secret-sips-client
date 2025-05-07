@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
-import logo from "../secret-sips-logo.png";
+import logo from "../Secret_Sips_Home_Page_V2.png";
 import { createSocketConnection } from "../services";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { JoinGameInputs } from "../types/input_types";
@@ -66,8 +66,6 @@ export const HomePage = () => {
   return (
     <Container component="main" sx={{ mt: 10 }} maxWidth={false}>
       <HomePageWrapper>
-        <img src={logo} alt="logo" height="100%" width="100%" />
-
         <Box display="grid" gap="1rem">
           <TextField
             id="userName"

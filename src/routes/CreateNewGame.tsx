@@ -40,9 +40,6 @@ export const CreateNewGame = () => {
   }, [hasWs]);
 
   const handleClickJoin = () => {
-    // Define your parameters
-
-    console.log("test");
 
     const params = new URLSearchParams({
       userName,
