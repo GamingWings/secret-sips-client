@@ -1,3 +1,17 @@
+# Secret Sips — Client
+
+Party-game client for Secret Sips, a Jackbox-style adaptation of Dropout's
+Dirty Laundry (players guess whose anonymous secret was just revealed; the
+owner confesses with a sip).
+
+The game design — rules, round flow, scoring, and current implementation
+status — is documented in
+[`GAMEPLAY.md` in the server repo](https://github.com/GamingWings/secret-sips-server/blob/main/GAMEPLAY.md).
+Read that first: the client currently still targets the server's old
+raw-WebSocket endpoints and needs to be migrated to the GraphQL API.
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
